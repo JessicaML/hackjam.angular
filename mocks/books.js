@@ -1,7 +1,7 @@
 const images = 'assets/img';
 
 export const mockBooks = [
-  { title: 'JavaScript', cover: `${images}/angularjs.jpg`, category: 'Web' },
+  { title: 'JavaScript & Angular', cover: `${images}/angularjs.jpg`, category: 'Web' },
   { title: 'React Up and Running', cover: `${images}/reactjs.jpg`, category: 'Web' },
   { title: 'Learning React Native', cover: `${images}/reactnative.jpg`, category: 'Mobile' },
   { title: 'Learn Ionic Framework', cover: `${images}/ionic.jpg`, category: 'Mobile' },

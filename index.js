@@ -38,6 +38,14 @@ function BooksController($rootScope){
   $rootScope.$on('toggle_sidebar', ($event, toggle_sidebar) => {
     this.toggle_sidebar = toggle_sidebar;
   });
+
+  $rootScope.$on('search_term_changed', ($event, searchTerm) => {
+    this.books = mockBooks.filter(book => {
+      return book.title.toLowerCase().includes(searchTerm.toLowerCase())
+             || book.category.toLowerCase().includes(searchTerm.toLowerCase());
+
+    });
+  });
 }
 
 function SideBarController($scope) {
@@ -47,6 +55,9 @@ function SideBarController($scope) {
     $scope.$emit('toggle_sidebar', this.navClosed);
   };
 
+  this.search = function(){
+    $scope.$emit('search_term_changed', this.searchTerm);
+  };
 }
 
 const deps = [];
