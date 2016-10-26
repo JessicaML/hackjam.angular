@@ -46,6 +46,7 @@ AppService
 
 > All operations in the service should be asynchronous
 - Use the service where needed in your application
+- Learn about $scope.$digest if you can't get your data after unwrapping them
 
 #### Components in Angular
 

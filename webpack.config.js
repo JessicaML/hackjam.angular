@@ -2,7 +2,7 @@ const exclude = ['node_modules'];
 
 const config = {
   devtool: 'source-map',
-  entry: './index.js',
+  entry: ['babel-polyfill', './index.js'],
   output: {
     filename: 'index.js',
     path: 'dist/',
@@ -21,7 +21,7 @@ const config = {
         test: /\.(js|jsx)$/,
         loader: 'babel',
         exclude: /(node_modules)/,
-        plugins: ['transform-async-to-generator'],
+        plugins: ['transform-regenerator', 'transform-async-to-generator'],
         query: {
           presets: [
             'babel-preset-es2015',

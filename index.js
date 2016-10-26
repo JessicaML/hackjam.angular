@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import angular from 'angular/index';
 import categories from './mocks/categories';
 import { mockBooks } from './mocks/books';
@@ -6,10 +7,14 @@ function NavController(){
   this.title = "Books by Hackages";
 }
 
-function MenuController($scope){
-  this.categories = categories;
+function MenuController($scope, AppService){
+  AppService.getCategories().then(categories => {
+    this.categories = categories;
+    $scope.$digest();
+  });
+
   this.changeCategory = function(selectedCategory){
-    this.categories = categories.map(category => {
+    this.categories = this.categories.map(category => {
       if(category.name === selectedCategory.name) {
         category.selected = true;
       } else {
@@ -22,17 +27,30 @@ function MenuController($scope){
   };
 }
 
-function BooksController($rootScope){
-  this.books = mockBooks;
+function BooksController($rootScope, AppService){
   this.toggle_sidebar = true;
+
+  AppService.getBooks().then(books => {
+    this.books = books;
+    this.initialBooks = books; // use for filtering books
+    // $sope.$digest();
+  });
+
+  // async function getBooks() {
+  //   const books = await AppService.getBooks();
+  //   this.initialBooks = books;
+  //   this.books = books;
+  //   $scope.$digest();
+  // }
+  // getBooks.call(this);
 
   $rootScope.$on('category_changed', ($event, category) => {
     if(category.name === 'All') {
-      this.books = mockBooks;
+      this.books = this.initialBooks;
       return;
     }
 
-    this.books = mockBooks.filter(book => book.category == category.name);
+    this.books = this.initialBooks.filter(book => book.category == category.name);
   });
 
   $rootScope.$on('toggle_sidebar', ($event, toggle_sidebar) => {
@@ -40,7 +58,7 @@ function BooksController($rootScope){
   });
 
   $rootScope.$on('search_term_changed', ($event, searchTerm) => {
-    this.books = mockBooks.filter(book => {
+    this.books = this.initialBooks.filter(book => {
       return book.title.toLowerCase().includes(searchTerm.toLowerCase())
              || book.category.toLowerCase().includes(searchTerm.toLowerCase());
 
@@ -60,6 +78,20 @@ function SideBarController($scope) {
   };
 }
 
+function AppService($q){
+
+  this.getBooks = function(){
+    const defer = $q.defer();
+    defer.resolve(mockBooks);
+    return defer.promise;
+    // return Promise.resolve(mockBooks);
+  };
+
+  this.getCategories = function() {
+    return Promise.resolve(categories);
+  };
+}
+
 const deps = [];
 
 angular.module('bookstore', deps)
@@ -67,5 +99,6 @@ angular.module('bookstore', deps)
   .controller('MenuController', MenuController)
   .controller('BooksController', BooksController)
   .controller('SideBarController', SideBarController)
+  .service('AppService', AppService)
 
 angular.bootstrap(document.body, ['bookstore']);
