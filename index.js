@@ -1,11 +1,22 @@
 import 'babel-polyfill';
-import angular from 'angular/index';
+import { module, bootstrap } from 'angular/index';
 import categories from './mocks/categories';
 import { mockBooks } from './mocks/books';
 
-function NavController(){
-  this.title = "Books by Hackages";
+// function NavController(){
+//   this.title = "Books by Hackages";
+// }
+
+class NavController{
+  title = "Bowdsdklfjsqfldooks By Hackages";
+
+  constructor(s, a){
+    console.log(a);
+  }
 }
+
+NavController.$inject = ['$scope', 'AppService'];
+
 
 function MenuController($scope, AppService){
   AppService.getCategories().then(categories => {
@@ -94,11 +105,19 @@ function AppService($q){
 
 const deps = [];
 
-angular.module('bookstore', deps)
-  .controller('NavController', NavController)
+module('bookstore', deps)
+  // .controller('NavController', NavController)
   .controller('MenuController', MenuController)
   .controller('BooksController', BooksController)
   .controller('SideBarController', SideBarController)
   .service('AppService', AppService)
+  .component('bookstore', {
+    templateUrl: 'template.html',
+  })
+  .component('bookstoreHeader', {
+    templateUrl: 'header.html',
+    controller: NavController,
+    controllerAs: 'nav'
+  })
 
-angular.bootstrap(document.body, ['bookstore']);
+bootstrap(document.body, ['bookstore']);

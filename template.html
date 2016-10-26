@@ -1,0 +1,43 @@
+<bookstore-header></bookstore-header>
+
+<main class="main-content">
+
+<!--Menu filters-->
+<div class="tab-filter-wrapper" ng-controller="MenuController as menu">
+  <div class="tab-filter">
+    <ul>
+      <li class="placeholder">
+        <a data-type="all" href="#0">All</a>
+      </li>
+      <li ng-repeat="category in menu.categories" ng-click="menu.changeCategory(category)">
+        <a class="{{category.selected? 'selected': ''}}" href="#0">{{category.name}}</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!--List of books-->
+<section class="{{!model.toggle_sidebar? 'gallery filter-is-visible': 'gallery'}}" ng-controller="BooksController as model">
+  <ul>
+    <li ng-repeat="book in model.books"><img ng-src="{{book.cover}}" click="clicked"/></li>
+  </ul>
+</section>
+
+<!-- Sidebar navigation -->
+<div ng-controller="SideBarController as sidebar">
+  <div class="{{!sidebar.navClosed ? 'filter filter-is-visible': 'filter'}}">
+    <form>
+      <div class="filter-block">
+        <h4>Search</h4>
+        <div class="filter-content">
+          <input type="search" ng-model="sidebar.searchTerm" placeholder="title, price..." ng-change="sidebar.search()"/>
+        </div>
+      </div>
+    </form>
+    <a href="#0" class="close" ng-click="sidebar.toggleSideBar()">Close</a>
+  </div>
+
+  <a href="#0" class="filter-trigger" ng-click="sidebar.toggleSideBar()">Filters</a>
+</div>
+</main>
+
