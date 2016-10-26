@@ -24,6 +24,7 @@ function MenuController($scope){
 
 function BooksController($rootScope){
   this.books = mockBooks;
+  this.toggle_sidebar = true;
 
   $rootScope.$on('category_changed', ($event, category) => {
     if(category.name === 'All') {
@@ -33,13 +34,19 @@ function BooksController($rootScope){
 
     this.books = mockBooks.filter(book => book.category == category.name);
   });
+
+  $rootScope.$on('toggle_sidebar', ($event, toggle_sidebar) => {
+    this.toggle_sidebar = toggle_sidebar;
+  });
 }
 
-function SideBarController() {
+function SideBarController($scope) {
   this.navClosed = true;
   this.toggleSideBar = function(){
     this.navClosed = !this.navClosed;
+    $scope.$emit('toggle_sidebar', this.navClosed);
   };
+
 }
 
 const deps = [];

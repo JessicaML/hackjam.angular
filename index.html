@@ -33,7 +33,7 @@
     </div>
 
     <!--List of books-->
-    <section class="gallery" ng-controller="BooksController as model">
+    <section class="{{!model.toggle_sidebar? 'gallery filter-is-visible': 'gallery'}}" ng-controller="BooksController as model">
       <ul>
         <li ng-repeat="book in model.books"><img ng-src="{{book.cover}}" click="clicked"/></li>
       </ul>

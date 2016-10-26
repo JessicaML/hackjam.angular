@@ -34,8 +34,8 @@ BooksController
 SideBarController
 - Should contain a property 'navClosed' of type boolean with 'true' as default value
 - Should contain a property 'toggleSideBar' of type function which switch the value of 'navClosed' to opposite value
-- The function toggleSidebar should emit an event 'sidebar_open'
-- Should contain a property `seach` of type function with will filter books by title and category
+- The function toggleSidebar should emit an event 'toggle_sidebar'
+- Should contain a property `search` of type function with will filter books by title and category
 
 #### Services in Angular
 AppService
