@@ -2,20 +2,7 @@ import 'babel-polyfill';
 import { module, bootstrap } from 'angular/index';
 import categories from './mocks/categories';
 import { mockBooks } from './mocks/books';
-
-// function NavController(){
-//   this.title = "Books by Hackages";
-// }
-
-class NavController{
-  title = "Bowdsdklfjsqfldooks By Hackages";
-
-  constructor(s, a){
-    console.log(a);
-  }
-}
-
-NavController.$inject = ['$scope', 'AppService'];
+import HeaderModule from './modules/header';
 
 
 function MenuController($scope, AppService){
@@ -95,29 +82,24 @@ function AppService($q){
     const defer = $q.defer();
     defer.resolve(mockBooks);
     return defer.promise;
-    // return Promise.resolve(mockBooks);
   };
 
   this.getCategories = function() {
-    return Promise.resolve(categories);
+    const defer = $q.defer();
+    defer.resolve(categories);
+    return defer.promise;
   };
 }
 
-const deps = [];
+const deps = [HeaderModule];
 
 module('bookstore', deps)
-  // .controller('NavController', NavController)
   .controller('MenuController', MenuController)
   .controller('BooksController', BooksController)
   .controller('SideBarController', SideBarController)
   .service('AppService', AppService)
   .component('bookstore', {
     templateUrl: 'template.html',
-  })
-  .component('bookstoreHeader', {
-    templateUrl: 'header.html',
-    controller: NavController,
-    controllerAs: 'nav'
-  })
+  });
 
 bootstrap(document.body, ['bookstore']);
