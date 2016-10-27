@@ -4,7 +4,10 @@ import headerTemplate from './header.template';
 const headerComponent = {
   template: headerTemplate,
   controller: NavController,
-  controllerAs: 'nav'
+  controllerAs: 'nav',
+  bindings: {
+    title: '@'
+  },
 };
 
 export default headerComponent;

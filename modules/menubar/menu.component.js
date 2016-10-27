@@ -5,6 +5,10 @@ const MenuComponent = {
   template: menuTemplate,
   controller: MenuController,
   controllerAs: 'menu',
+  bindings: {
+    categories: '<',
+    changeCategory: '&',
+  },
 };
 
 export default MenuComponent;

@@ -4,11 +4,9 @@ import MenuModule from '../menubar';
 import BooksModule from '../book';
 import SideBarModule from '../sidebar';
 import BookstoreServices from '../services';
-// import BookstoreManager from '..'
-import bookstoreTemplate from './template.html';
+import BookstoreComponent from './bookstore.component.js';
 
 const deps = [
-  // BookstoreManager,
   HeaderModule,
   MenuModule,
   BooksModule,
@@ -17,8 +15,6 @@ const deps = [
 ];
 
 module('bookstore', deps)
-  .component('bookstore', {
-    template: bookstoreTemplate,
-  });
+  .component('bookstore', BookstoreComponent);
 
 

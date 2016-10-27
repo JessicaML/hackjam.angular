@@ -4,7 +4,7 @@
       <li class="placeholder">
         <a data-type="all" href="#0">All</a>
       </li>
-      <li ng-repeat="category in menu.categories" ng-click="menu.changeCategory(category)">
+      <li ng-repeat="category in menu.categories track by category.name" ng-click="menu.changeCategory({category})">
         <a class="{{category.selected? 'selected': ''}}" href="#0">{{category.name}}</a>
       </li>
     </ul>
