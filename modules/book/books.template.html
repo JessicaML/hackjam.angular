@@ -1,0 +1,6 @@
+<section class="{{!model.toggle_sidebar? 'gallery filter-is-visible': 'gallery'}}">
+  <ul>
+    <li ng-repeat="book in model.books"><img ng-src="{{book.cover}}" click="clicked"/></li>
+  </ul>
+</section>
+

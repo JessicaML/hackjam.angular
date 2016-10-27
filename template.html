@@ -3,25 +3,10 @@
 <main class="main-content">
 
 <!--Menu filters-->
-<div class="tab-filter-wrapper" ng-controller="MenuController as menu">
-  <div class="tab-filter">
-    <ul>
-      <li class="placeholder">
-        <a data-type="all" href="#0">All</a>
-      </li>
-      <li ng-repeat="category in menu.categories" ng-click="menu.changeCategory(category)">
-        <a class="{{category.selected? 'selected': ''}}" href="#0">{{category.name}}</a>
-      </li>
-    </ul>
-  </div>
-</div>
+<bookstore-menu-bar></bookstore-menu-bar>
 
 <!--List of books-->
-<section class="{{!model.toggle_sidebar? 'gallery filter-is-visible': 'gallery'}}" ng-controller="BooksController as model">
-  <ul>
-    <li ng-repeat="book in model.books"><img ng-src="{{book.cover}}" click="clicked"/></li>
-  </ul>
-</section>
+<bookstore-books></bookstore-books>
 
 <!-- Sidebar navigation -->
 <div ng-controller="SideBarController as sidebar">
