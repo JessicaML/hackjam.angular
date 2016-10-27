@@ -5,25 +5,15 @@ import { mockBooks } from './mocks/books';
 import HeaderModule from './modules/header';
 import MenuModule from './modules/menubar';
 import BooksModule from './modules/book';
+import SideBarModule from './modules/sidebar';
 
 
 
 
 
-function SideBarController($scope) {
-  this.navClosed = true;
-  this.toggleSideBar = function(){
-    this.navClosed = !this.navClosed;
-    $scope.$emit('toggle_sidebar', this.navClosed);
-  };
 
-  this.search = function(){
-    $scope.$emit('search_term_changed', this.searchTerm);
-  };
-}
 
 function AppService($q){
-
   this.getBooks = function(){
     const defer = $q.defer();
     defer.resolve(mockBooks);
@@ -37,10 +27,9 @@ function AppService($q){
   };
 }
 
-const deps = [HeaderModule, MenuModule, BooksModule];
+const deps = [HeaderModule, MenuModule, BooksModule, SideBarModule];
 
 module('bookstore', deps)
-  .controller('SideBarController', SideBarController)
   .service('AppService', AppService)
   .component('bookstore', {
     templateUrl: 'template.html',
