@@ -13,6 +13,7 @@ export class AppComponent {
   categories: Category[] = categories;
   navClosed: Boolean = true;
   searchTerm: string = "";
+  title: string = "Bookstore by Hackages"
 
   clicked(): void {
     console.log('Will be implemented in the next section');
